@@ -1,19 +1,36 @@
-apply plugin: 'java'
+plugins {
+    id 'com.gradleup.shadow' version '8.3.0'
+    id 'java'
+}
 
 group = 'pw.fusionmine'
-version = '1.0'
+version = '1.1'
 
 repositories {
     mavenCentral()
     maven {
         url "https://libraries.minecraft.net"
     }
+    maven {
+        setName("elytrium-repo")
+        setUrl("https://maven.elytrium.net/repo/")
+    }
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
 }
 
 dependencies {
     compileOnly("net.md-5:bungeecord-api:1.21-R0.3")
+    compileOnly ("org.projectlombok:lombok:1.18.38")
+    annotationProcessor ("org.projectlombok:lombok:1.18.38")
+    implementation ("co.aikar:acf-bungee:0.5.1-SNAPSHOT")
+    implementation ("net.elytrium.commons:config:1.2.5")
 }
 
+shadowJar {
+    relocate 'co.aikar.commands', 'pw.fusionmine.acf'
+    relocate 'co.aikar.locales', 'pw.fusionmine.acf.locales'
+    relocate 'net.elytrium.commons.config', 'pw.fusionmine.utils.config'
+}
 
 def targetJavaVersion = 21
 java {
@@ -42,3 +59,5 @@ processResources {
         expand props
     }
 }
+
+build.dependsOn shadowJar
