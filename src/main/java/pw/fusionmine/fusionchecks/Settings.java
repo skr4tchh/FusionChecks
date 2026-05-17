@@ -47,6 +47,8 @@ public class Settings extends YamlConfig {
 
         public static class CHECK {
 
+            public String BYPASS = "{PRFX} Вы не можете вызвать этого игрока на проверку.";
+
             public String NO_YOURSELF = "{PRFX} Вы не можете вызвать самого себя на проверку.";
 
             public String START = "{PRFX} Вы вызвали игрока &6%player% &fна проверку.";

@@ -32,6 +32,11 @@ public class CheckCommand extends BaseCommand {
             return;
         }
 
+        if(targetPlayer.hasPermission("fusionchecks.check.bypass")) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.BYPASS);
+            return;
+        }
+
         checkManager.startCheck(targetPlayer, player);
         Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.START.replace("%player%", targetPlayer.getName()));
     }
