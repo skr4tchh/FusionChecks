@@ -45,7 +45,7 @@ public class CheckCommand extends BaseCommand {
     @CommandPermission("fusionchecks.check.stop")
     public void onStop(ProxiedPlayer player, OnlinePlayer target) {
         if(!checkManager.isCheckerActive(player)) {
-            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO);
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO_CHECK);
             return;
         }
 
@@ -59,7 +59,7 @@ public class CheckCommand extends BaseCommand {
     public void onStop(ProxiedPlayer player) {
         ProxiedPlayer target = checkManager.getTargetByChecker(player.getUniqueId());
         if(target == null) {
-            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO);
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO_CHECK);
             return;
         }
         Utils.sendBanCommand(target, Settings.IMP.CHECK.BAN_COMMAND);

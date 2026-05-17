@@ -41,7 +41,7 @@ public class ContactCommand extends BaseCommand {
             Utils.sendMessage(checker, format.replace("%sender%", "&7" + player.getName()));
             Utils.sendMessage(player, format.replace("%sender%", "&7" + player.getName()));
         } else {
-            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO);
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO_CHECK);
         }
     }
 
