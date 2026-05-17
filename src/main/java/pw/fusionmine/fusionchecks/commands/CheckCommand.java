@@ -52,6 +52,7 @@ public class CheckCommand extends BaseCommand {
         ProxiedPlayer targetPlayer = target.getPlayer();
         checkManager.endCheck(targetPlayer);
         Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.STOP.replace("%player%", targetPlayer.getName()));
+        Utils.sendMessage(targetPlayer, Settings.IMP.MESSAGES.CHECK.RELEASED);
     }
 
     @Subcommand("soft")

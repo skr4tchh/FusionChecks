@@ -47,6 +47,8 @@ public class Settings extends YamlConfig {
 
         public static class CHECK {
 
+            public String RELEASED = "{PRFX} &fВас отпустили с проверки.";
+
             public String BYPASS = "{PRFX} Вы не можете вызвать этого игрока на проверку.";
 
             public String NO_YOURSELF = "{PRFX} Вы не можете вызвать самого себя на проверку.";
@@ -80,7 +82,7 @@ public class Settings extends YamlConfig {
 
             public String USAGE = "{PRFX} Использование: &6/contact [текст]";
 
-            public String FORMAT = "&8[&6Проверка&8] %sender% &8-> &f%message%";
+            public String FORMAT = "&8[&6Проверка&8] %sender% &8⇒ &f%message%";
 
         }
 
