@@ -18,10 +18,15 @@ public class CheckListener implements Listener {
     @EventHandler
     public void onDisconnect(PlayerDisconnectEvent e) {
         ProxiedPlayer player = e.getPlayer();
-        if (!checkManager.isChecking(player))
-            return;
-        Utils.sendBanCommand(player, Settings.IMP.CHECK.LEAVE_BAN_COMMAND);
-        checkManager.endCheck(player);
+        ProxiedPlayer target = checkManager.getTargetByChecker(player.getUniqueId());
+        if (target != null) {
+            checkManager.endCheck(target);
+        } else if (checkManager.isChecking(player)) {
+            Utils.sendBanCommand(player, Settings.IMP.CHECK.LEAVE_BAN_COMMAND);
+            checkManager.endCheck(player);
+            ProxiedPlayer checker = checkManager.getCheckerByTarget(player);
+            Utils.sendMessage(checker, Settings.IMP.MESSAGES.CHECK.LEAVE);
+        }
     }
 
     @EventHandler
@@ -30,9 +35,9 @@ public class CheckListener implements Listener {
         if (!checkManager.isChecking(player))
             return;
         String msg = e.getMessage().toLowerCase();
-        if (!msg.startsWith("/contact") || !msg.equals("/check confess")) {
+        if (!msg.startsWith("/contact")) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CONTACT.USAGE);
             e.setCancelled(true);
-            player.sendMessage("/contact [сообщение]");
         }
     }
 

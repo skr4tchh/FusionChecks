@@ -21,35 +21,52 @@ public class CheckCommand extends BaseCommand {
     @Subcommand("start")
     @CommandPermission("fusionchecks.check.start")
     public void onStart(ProxiedPlayer player, OnlinePlayer target) {
-        checkManager.startCheck(target.getPlayer(), player);
+        if(checkManager.isCheckerActive(player)) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.ACTIVE);
+            return;
+        }
+
+        ProxiedPlayer targetPlayer = target.getPlayer();
+        if(targetPlayer.getName().equals(player.getName())) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO_YOURSELF);
+            return;
+        }
+
+        checkManager.startCheck(targetPlayer, player);
+        Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.START.replace("%player%", targetPlayer.getName()));
     }
 
     @Subcommand("stop")
     @CommandPermission("fusionchecks.check.stop")
     public void onStop(ProxiedPlayer player, OnlinePlayer target) {
-        checkManager.endCheck(target.getPlayer());
+        if(!checkManager.isCheckerActive(player)) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO);
+            return;
+        }
+
+        ProxiedPlayer targetPlayer = target.getPlayer();
+        checkManager.endCheck(targetPlayer);
+        Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.STOP.replace("%player%", targetPlayer.getName()));
     }
 
     @Subcommand("soft")
     @CommandPermission("fusionchecks.check.soft")
     public void onStop(ProxiedPlayer player) {
         ProxiedPlayer target = checkManager.getTargetByChecker(player.getUniqueId());
+        if(target == null) {
+            Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.NO);
+            return;
+        }
         Utils.sendBanCommand(target, Settings.IMP.CHECK.BAN_COMMAND);
         checkManager.endCheck(target);
+        Utils.sendMessage(player, Settings.IMP.MESSAGES.CHECK.SOFT.replace("%player%", target.getName()));
     }
 
     @Subcommand("reload")
     @CommandPermission("fusionchecks.check.reload")
     public void onReload(ProxiedPlayer player) {
         plugin.reloadSettings();
-        player.sendMessage("Вы перезагрузили плагин");
-    }
-
-    @Subcommand("confess")
-    public void onConfess(ProxiedPlayer player) {
-        Utils.sendBanCommand(player, Settings.IMP.CHECK.DENY_BAN_COMMAND);
-        checkManager.endCheck(player);
-        player.sendMessage("Вы признались в читах");
+        Utils.sendMessage(player, Settings.IMP.MESSAGES.SETTINGS_RELOADED);
     }
 
 }
