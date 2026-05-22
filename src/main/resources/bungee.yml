@@ -1,3 +1,4 @@
 name: FusionChecks
 version: '${version}'
 main: pw.fusionmine.fusionchecks.FusionChecks
+author: 'Skr4tch'
