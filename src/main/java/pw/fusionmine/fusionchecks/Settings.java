@@ -20,7 +20,7 @@ public class Settings extends YamlConfig {
 
         public String LEAVE_BAN_COMMAND = "banip %target% 30d 3.1.2 - Уход от проверки";
 
-        public String DENY_BAN_COMMAND = "banip %target% 30d 3.1.2 - Признание в читах";
+        public String DENY_BAN_COMMAND = "banip %target% 28d 3.1.2 - Признание в читах";
 
     }
 
@@ -71,7 +71,7 @@ public class Settings extends YamlConfig {
             + "&a ▶ &fУстановите программу &bAnyDesk &f- &b&nanydesk.com&r &7(нажмите)\n"
             + "&a ▶ &fОтправьте код &7(это рабочее место) &fмодератору\n\n"
             + "&e /&e&lcontact &e[текст] &f- отправить сообщение модератору\n"
-            + "&e /&e&lcontact &cя читер &f- признаться в читах\n";
+            + "&e /&e&lcontact &cя читер &f- признаться в читах &7(срок будет уменьшен)\n";
 
         }
 
